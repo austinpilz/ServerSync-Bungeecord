@@ -19,65 +19,58 @@ public class ServerSyncCommand extends Command
 	
 	@Override
 	public void execute(CommandSender commandSender, String[] args) 
-	{	
-		if (args.length > 0)
-		{
-			if (args[0].equalsIgnoreCase("settings"))
-			{
-				if (args.length == 2)
-				{
-					if (args[1].equalsIgnoreCase("Verbose"))
-					{
-						if (ServerSync.verbose)
-						{
-							//Verbose now disabled
-							ServerSync.verbose = false;
-							
-							TextComponent message = new TextComponent(ServerSync.chatPrefix);
-							message.setColor(ChatColor.GREEN);
-							message.addExtra("Verbose logging now disabled");
-							commandSender.sendMessage(message);
+	{
+		if (commandSender.hasPermission("ServerSyncBungee.admin")) {
+			if (args.length > 0) {
+				if (args[0].equalsIgnoreCase("settings")) {
+					if (args.length == 2) {
+						if (args[1].equalsIgnoreCase("Verbose")) {
+							if (ServerSync.verbose) {
+								//Verbose now disabled
+								ServerSync.verbose = false;
+
+								TextComponent message = new TextComponent(ServerSync.chatPrefix);
+								message.setColor(ChatColor.GREEN);
+								message.addExtra("Verbose logging now disabled");
+								commandSender.sendMessage(message);
+							} else {
+								//Verbose now enabled
+								ServerSync.verbose = true;
+
+								TextComponent message = new TextComponent(ServerSync.chatPrefix);
+								message.setColor(ChatColor.GREEN);
+								message.addExtra("Verbose logging now enabled");
+								commandSender.sendMessage(message);
+							}
+						} else {
+							//Unknown Commands
+							sendUnknownCommand(commandSender);
 						}
-						else
-						{
-							//Verbose now enabled
-							ServerSync.verbose = true;
-							
-							TextComponent message = new TextComponent(ServerSync.chatPrefix);
-							message.setColor(ChatColor.GREEN);
-							message.addExtra("Verbose logging now enabled");
-							commandSender.sendMessage(message);
-						}
-					}
-					else
-					{
+					} else {
 						//Unknown Commands
 						sendUnknownCommand(commandSender);
 					}
-				}
-				else
-				{
+				} else {
 					//Unknown Commands
 					sendUnknownCommand(commandSender);
 				}
-			}
-			else
-			{
-				//Unknown Commands
-				sendUnknownCommand(commandSender);
+			} else {
+				//ServerSync Information
+				TextComponent message = new TextComponent(ServerSync.chatPrefix + ServerSync.pluginName + " v" + ServerSync.pluginVersion);
+				message.setColor(ChatColor.GREEN);
+				commandSender.sendMessage(message);
+
+				TextComponent message2 = new TextComponent("ServerSync Bungeecord Website");
+				message2.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/serversync-bungeecord.14904/"));
+				message2.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Goto ServerSync Bungeecord Website!").create()));
+				commandSender.sendMessage(message2);
 			}
 		}
 		else
 		{
-			//ServerSync Information
-			TextComponent message = new TextComponent(ServerSync.chatPrefix + ServerSync.pluginName + " v" + ServerSync.pluginVersion);
-			message.setColor(ChatColor.GREEN);
+			TextComponent message = new TextComponent(ServerSync.chatPrefix + "Invalid permissions!");
+			message.setColor(ChatColor.RED);
 			commandSender.sendMessage(message);
-			
-			TextComponent message2 = new TextComponent( "ServerSync Bungeecord Website" );
-			message2.setClickEvent( new ClickEvent( ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/serversync-bungeecord.14904/" ) );
-			message2.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Goto ServerSync Bungeecord Website!").create() ) );
-			commandSender.sendMessage( message2 );
 		}
 	}
 	
