@@ -41,7 +41,7 @@ public class ServerSync extends Plugin
 	public static final String consolePrefix = "[ServerSync Bungee] ";
 	public static final String chatPrefix = "[ServerSync Bungee]";
 	public static final String pluginName = "ServerSync";
-	public static final String pluginVersion = "1.6.2";
+	public static final String pluginVersion = "1.6.3";
 	
 	
 	//Plugins
