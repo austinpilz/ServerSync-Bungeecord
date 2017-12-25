@@ -1,4 +1,4 @@
 name: ServerSync
 main: com.AustinPilz.ServerSync.ServerSync
-version: 1.6.3
+version: ${project.version}
 author: Austin Pilz
